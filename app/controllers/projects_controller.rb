@@ -1,5 +1,6 @@
 class ProjectsController < ApplicationController
   def index
+    @projects = Project.all
   end
   def new
     @project = Project.new
@@ -9,11 +10,13 @@ class ProjectsController < ApplicationController
     if @project.save
       redirect_to project_path(@project), notice: "Project has been created."
     else
-      # nothing, yet
+      flash.now[:alert] = "Project has not been created."
+      render "new"
     end
   end
   def show
     @project = Project.find(params[:id])
+    @title = "#{@project.name} - Projects - Ticketee"
   end
   private
   def project_params

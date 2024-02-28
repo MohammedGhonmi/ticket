@@ -1,4 +1,15 @@
 <%= link_to "New Project", new_project_path %>
+<% if @project.errors.any? %>
+  <div style="color: red">
+    <h2><%= pluralize(@project.errors.count, "error") %> prohibited this purchase from being saved:</h2>
+
+    <ul>
+      <% @project.errors.each do |error| %>
+        <li><%= error.full_message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
 <%= form_for(Project.new) do |f| %>
   <p>
     <%= f.label :name %><br>
